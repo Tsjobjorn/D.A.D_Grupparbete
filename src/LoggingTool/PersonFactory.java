@@ -1,7 +1,7 @@
 package LoggingTool;
 
-import Person.AnimalHandler;
-import Person.Receptionist;
+import Person.*;
+import Animal.*;
 
 public class PersonFactory {  // factory design pattern
 

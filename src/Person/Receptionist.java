@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -142,20 +143,40 @@ public class Receptionist implements ProtocolFunctionInterface {
         try {
             Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
+                System.out.println("DEBUG: Försöker läsa in en data från fil");
                 if (readTextFile.hasNextLine()) {
                     String customerInfo = readTextFile.nextLine();
-                    customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':'), -1)));
+                    System.out.println("DEBUG: Lyckades läsa in sträng: CustomerInfo: "+customerInfo);
+                    System.out.println("DEBUG: Substringade namn= "+customerInfo.substring(0, customerInfo.indexOf(':')));
+                    System.out.println("DEBUG: Substringade telenummer="+ customerInfo.substring(customerInfo.indexOf(':')));
+                    customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':'))));
+                    System.out.println("DEBUG: Lyckades lägga in namn&nr i lista");
+                    System.out.println("DEBUG: Storlek på lista="+customerList.size());
                     if (readTextFile.hasNextLine()) {
-                        String petInfo = readTextFile.nextLine(); //OBS. Vet ej om substring indexen är exakt korrekt.
-                        customerList.get(customerList.size()).getAnimal().setType(petInfo.substring(0, petInfo.indexOf(':')));
-                        customerList.get(customerList.size()).getAnimal().setPetName(petInfo.substring(petInfo.indexOf(':'), -1));
+                        System.out.println("DEBUG: Försöker läsa in petInfo");
+                        String petInfo = readTextFile.nextLine();
+                        System.out.println("DEBUG: Substringa petType="+petInfo.substring(0, petInfo.indexOf(':')));
+                        System.out.println("DEBUG: Substringade petName="+ petInfo.substring(petInfo.indexOf(':')));
+
+//                        customerList.get(customerList.size()).getAnimal().setType(petInfo.substring(0, petInfo.indexOf(':')));
+//                        System.out.println("DEBUG: Satt petType");
+                        customerList.get(customerList.size()-1).setPetType(petInfo.substring(petInfo.indexOf(':')),petInfo.substring(0, petInfo.indexOf(':')));
+                        System.out.println("DEBUG: La till petType och petName");
+//                                (petInfo.substring(petInfo.indexOf(':')));
+//                        System.out.println("DEBUG: Satt petName");
+
+//                        customerList.get(customerList.size()-1).getAnimal().setType(petInfo.substring(0, petInfo.indexOf(':')));
+//                        System.out.println("DEBUG: Satt petType");
+//                        customerList.get(customerList.size()-1).getAnimal().setPetName(petInfo.substring(petInfo.indexOf(':')));
+//                        System.out.println("DEBUG: Satt petName");
                     }
                 }
             }
         } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException!");
             throw new RuntimeException(e);
         }
-
+    }
 
 //    private static void printInformationFromList() {
 //        // Metod för att hämta information från textfilen customerInfo.
@@ -174,6 +195,7 @@ public class Receptionist implements ProtocolFunctionInterface {
 
         @Override
         public void protocol () {
+            fillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
             printChoices();
             String s = scan.nextLine();
             switch (s) {
@@ -197,4 +219,6 @@ public class Receptionist implements ProtocolFunctionInterface {
                     2 to add print customer information
                     3 to go to Animal handler""");
         }
+
     }
+
