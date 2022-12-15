@@ -13,6 +13,11 @@ import java.util.Scanner;
 import static LoggingTool.AnimalType.*;
 
 public class Receptionist implements ProtocolFunctionInterface {
+
+    private static final String rabbit = "Rabbit";
+    private static final String dog = "Dog";
+    private static final String cat = "Cat";
+    private static final String bird = "Bird";
     private static List<String> customerInformation;
     private static Receptionist instance = new Receptionist();
     public static Scanner scan;
@@ -40,15 +45,16 @@ public class Receptionist implements ProtocolFunctionInterface {
         String animalName = s;
         customerInformation.add(s);
 
-        addAnimalType();
-
+        System.out.println("Choose an animal type: \nPress 1 for rabbit\nPress 2 for dog\nPress 3 for cat\nPress 4 for bird");
+        s = scan.nextLine();
+        addAnimalType(s);
 
         System.out.println("Give me customers phone number");
         s = scan.nextLine();
         customerInformation.add(s);
         String phoneNumber = s;
         if (name != null && animalName != null && phoneNumber != null) {
-            writeCustomerInfoToFile(name, animalName, phoneNumber);
+            writeCustomerInfoToFile(name, animalName, phoneNumber );
         }
         Receptionist.getInstance().protocol();
     }
@@ -67,19 +73,31 @@ public class Receptionist implements ProtocolFunctionInterface {
         }
     }
 
-    public static void addAnimalType(){
+    public static void addAnimalType(String choice){
 
-        System.out.println("Choose an animal type: \nPress 1 for rabbit\nPress 2 for dog\nPress 3 for cat\nPress 4 for bird");
-        String choice = scan.nextLine();
+        if (choice == "1"){
+            customerInformation.add(rabbit);
+        }
+        else if (choice == "2"){
+            customerInformation.add(dog);
+        }
+        else if (choice == "3"){
+            customerInformation.add(cat);
+        }
+        else if (choice == "4"){
+            customerInformation.add(bird);
+        }
 
-            switch (choice){
-                case "1" -> customerInformation.add(RABBIT.toString());
-                case "2" -> customerInformation.add(DOG.toString());
-                case "3" -> customerInformation.add(CAT.toString());
-                case "4" -> customerInformation.add(BIRD.toString());
+            /*switch (choice){
+                case "1" -> customerInformation.add(rabbit);
+                case "2" -> customerInformation.add(dog);
+                case "3" -> customerInformation.add(cat);
+                case "4" -> customerInformation.add(bird);
                 default -> addAnimalType();
 
             }
+
+             */
     }
 
 
