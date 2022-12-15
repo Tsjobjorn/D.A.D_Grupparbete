@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static LoggingTool.AnimalType.*;
+
 public class Receptionist implements ProtocolFunctionInterface {
     private static List<String> customerInformation;
     private static Receptionist instance = new Receptionist();
@@ -38,6 +40,12 @@ public class Receptionist implements ProtocolFunctionInterface {
         String animalName = s;
         customerInformation.add(s);
 
+        System.out.println("Enter the animaltype: ");
+        s = scan.nextLine();
+        String animaltype = s;
+        checkAnimalType(animaltype);
+
+
         System.out.println("Give me customers phone number");
         s = scan.nextLine();
         customerInformation.add(s);
@@ -59,6 +67,20 @@ public class Receptionist implements ProtocolFunctionInterface {
             }
         } catch (IOException e) {
             e.getStackTrace();
+        }
+    }
+
+    public static void checkAnimalType(String s){
+
+        AnimalType[] animalTypes = AnimalType.values();
+        while (true) {
+            for (AnimalType animalType : animalTypes) {
+
+                if (s.equals(animalType.toString())) {
+                    customerInformation.add(s);
+                }
+
+            }
         }
     }
 
