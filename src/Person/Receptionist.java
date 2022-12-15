@@ -44,13 +44,16 @@ public class Receptionist implements ProtocolFunctionInterface {
         String addPhoneNr = scanner.nextLine();
 
         //Skapar upp en customer, lägger till i listan.
+        System.out.println("DEBUG: storlek på listan="+customerList.size());
         customerList.add(new Customer(customerName, addPhoneNr));
+        System.out.println("DEBUG: storlek på listan="+customerList.size());
+        System.out.println("DEBUG: La till customer i customerList");
         //Skapar upp pet(Animal) under customer objektet, tar nuvarande storleken på listan som index for vilket customer som ska få pet.
-        customerList.get(customerList.size()).addPetNameAndType();
-        System.out.println(customerName + " has been added as a customer with a pet " + customerList.get(customerList.size()).getAnimal().getType() + ".");
+        customerList.get(customerList.size() - 1).addPetNameAndType();
+        System.out.println(customerName + " has been added as a customer with a pet " + customerList.get(customerList.size() - 1).getPet().getType() + ".");
 
         //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av nuvarande storleken av listan för att skicka rätt index.
-        writeCustomerInfoToFile(customerList.get(customerList.size()));
+        writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
 
         Receptionist.getInstance().protocol();
     }
@@ -90,7 +93,7 @@ public class Receptionist implements ProtocolFunctionInterface {
         //nästa rad skriver ut pet info till fil.
         try (FileWriter fw = new FileWriter(file, true)) {
             fw.write(c.getName() + ":" + c.getPhoneNr() + "\n");
-            fw.write(c.getAnimal().getType() + ":" + c.getAnimal().getPetName());
+            fw.write(c.getPet().getType() + ":" + c.getPet().getPetName()+"\n");
 
         } catch (IOException e) {
             e.getStackTrace();
@@ -116,21 +119,28 @@ public class Receptionist implements ProtocolFunctionInterface {
 //        }
 //    }
     private static void printInformationFromList() {
+        System.out.println("customerlistSize="+customerList.size());
         System.out.println("Customers in system:");
         System.out.println("Name\t\t\tPhoneNumber\t\t\tPet Type\t\tPet Name");
+        System.out.println("customerlistSize="+customerList.size());
+
         Iterator var2 = customerList.iterator();
+
+        System.out.println("DEBUG: 0=" + customerList.get(0).getName());
+        System.out.println("DEBUG: 1=" + customerList.get(1).getName());
+        System.out.println("DEBUG: 0=" +customerList.get(0).getPet().getPetName());
 
         while (var2.hasNext()) {
             Customer c = (Customer) var2.next();
             String name = c.getName();
             String phNumber = c.getPhoneNr();
-            String petType = c.getAnimal().getType();
-            String petName = c.getAnimal().getPetName();
+            String petType = c.getPet().getType();
+            String petName = c.getPet().getPetName();
 
             String paddedName = String.format("%-15s", name);
             String paddedphNumber = String.format("%-15s", phNumber);
             String paddedpetType = String.format("%-10s", petType);
-            System.out.println(paddedName + paddedphNumber + paddedpetType + petName);
+            System.out.println(paddedName + paddedphNumber /*+ paddedpetType*/ + petName);
         }
 
         System.out.println("\n");
@@ -146,29 +156,22 @@ public class Receptionist implements ProtocolFunctionInterface {
                 System.out.println("DEBUG: Försöker läsa in en data från fil");
                 if (readTextFile.hasNextLine()) {
                     String customerInfo = readTextFile.nextLine();
-                    System.out.println("DEBUG: Lyckades läsa in sträng: CustomerInfo: "+customerInfo);
-                    System.out.println("DEBUG: Substringade namn= "+customerInfo.substring(0, customerInfo.indexOf(':')));
-                    System.out.println("DEBUG: Substringade telenummer="+ customerInfo.substring(customerInfo.indexOf(':')));
+                    System.out.println("DEBUG: Lyckades läsa in sträng: CustomerInfo: " + customerInfo);
+                    System.out.println("DEBUG: Substringade namn= " + customerInfo.substring(0, customerInfo.indexOf(':')));
+                    System.out.println("DEBUG: Substringade telenummer=" + customerInfo.substring(customerInfo.indexOf(':')));
                     customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':'))));
                     System.out.println("DEBUG: Lyckades lägga in namn&nr i lista");
-                    System.out.println("DEBUG: Storlek på lista="+customerList.size());
+                    System.out.println("DEBUG: Storlek på lista=" + customerList.size());
                     if (readTextFile.hasNextLine()) {
                         System.out.println("DEBUG: Försöker läsa in petInfo");
                         String petInfo = readTextFile.nextLine();
-                        System.out.println("DEBUG: Substringa petType="+petInfo.substring(0, petInfo.indexOf(':')));
-                        System.out.println("DEBUG: Substringade petName="+ petInfo.substring(petInfo.indexOf(':')));
-
-//                        customerList.get(customerList.size()).getAnimal().setType(petInfo.substring(0, petInfo.indexOf(':')));
-//                        System.out.println("DEBUG: Satt petType");
-                        customerList.get(customerList.size()-1).setPetType(petInfo.substring(petInfo.indexOf(':')),petInfo.substring(0, petInfo.indexOf(':')));
+                        System.out.println("DEBUG: Substringa petType=" + petInfo.substring(0, petInfo.indexOf(':')));
+                        System.out.println("DEBUG: Substringade petName=" + petInfo.substring(petInfo.indexOf(':')));
+                        customerList.get(customerList.size()-1).setPetType(petInfo.substring(petInfo.indexOf(':')), petInfo.substring(0, petInfo.indexOf(':')));
                         System.out.println("DEBUG: La till petType och petName");
-//                                (petInfo.substring(petInfo.indexOf(':')));
-//                        System.out.println("DEBUG: Satt petName");
+                        System.out.println("DEBUG: Kundnamn: "+customerList.get(customerList.size()-1).getName());
+                        System.out.println("DEBUG: Kundens djur: "+customerList.get(customerList.size()-1).getPet().getPetName());
 
-//                        customerList.get(customerList.size()-1).getAnimal().setType(petInfo.substring(0, petInfo.indexOf(':')));
-//                        System.out.println("DEBUG: Satt petType");
-//                        customerList.get(customerList.size()-1).getAnimal().setPetName(petInfo.substring(petInfo.indexOf(':')));
-//                        System.out.println("DEBUG: Satt petName");
                     }
                 }
             }
@@ -193,32 +196,32 @@ public class Receptionist implements ProtocolFunctionInterface {
 //
 //    }
 
-        @Override
-        public void protocol () {
-            fillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
-            printChoices();
-            String s = scan.nextLine();
-            switch (s) {
-                case "1" -> addCustomer();
-                // Tar emot states och delegerar användaren till specifika delar av programmet.
+    @Override
+    public void protocol() {
+//        fillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
+        printChoices();
+        String s = scan.nextLine();
+        switch (s) {
+            case "1" -> addCustomer();
+            // Tar emot states och delegerar användaren till specifika delar av programmet.
 
-                case "2" -> printInformationFromList();
+            case "2" -> printInformationFromList();
 
-                case "3" -> AnimalHandler.getInstance();
-                // Om du vill byta till att vara en djurhanterare istället för receptionist
+            case "3" -> AnimalHandler.getInstance();
+            // Om du vill byta till att vara en djurhanterare istället för receptionist
 
-                default -> System.out.println("Invalid input. Try again");
-            }
-            protocol();
+            default -> System.out.println("Invalid input. Try again");
         }
-
-        @Override
-        public void printChoices () {  // återkommande kod i programmet som delades upp i en metod istället.
-            System.out.println("""
-                    1 to add customer
-                    2 to add print customer information
-                    3 to go to Animal handler""");
-        }
-
+        protocol();
     }
+
+    @Override
+    public void printChoices() {  // återkommande kod i programmet som delades upp i en metod istället.
+        System.out.println("""
+                1 to add customer
+                2 to add print customer information
+                3 to go to Animal handler""");
+    }
+
+}
 

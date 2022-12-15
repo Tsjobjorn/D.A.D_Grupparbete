@@ -8,14 +8,16 @@ import java.util.Scanner;
 public class Customer extends Person {
 
 
+
     Animal pet;
 
-    public Animal getAnimal() {
+
+    public Animal getPet() {
         return pet;
     }
 
-    public void setAnimal(Animal animal) {
-        this.pet = animal;
+    public void setPet(Animal pet) {
+        this.pet = pet;
     }
 
 
@@ -26,7 +28,7 @@ public class Customer extends Person {
 
     public void addPetNameAndType() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Pet type?Dog, Cat, Rabbitt, Bird.");
+        System.out.println("Pet type? Dog, Cat, Rabitt, Bird.");
         String petType = scanner.nextLine();
         System.out.println("Pet name?");
         String petName = scanner.nextLine();
@@ -39,16 +41,16 @@ public class Customer extends Person {
 
         switch (petType.toLowerCase()) {
             case "dog":
-                pet = new Dog(name);
+                pet = new Dog(petName);
                 break;
             case "cat":
-                pet=new Cat(name);
+                pet=new Cat(petName);
                 break;
             case "rabbit":
-                pet=new Rabbit(name);
+                pet=new Rabbit(petName);
                 break;
             case "bird":
-                pet=new Bird(name);
+                pet=new Bird(petName);
                 break;
         }
 //        pet=new Dog(name);
