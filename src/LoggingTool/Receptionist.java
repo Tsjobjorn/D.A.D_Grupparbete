@@ -40,10 +40,7 @@ public class Receptionist implements ProtocolFunctionInterface {
         String animalName = s;
         customerInformation.add(s);
 
-        System.out.println("Enter the animaltype: ");
-        s = scan.nextLine();
-        String animaltype = s;
-        checkAnimalType(animaltype);
+        addAnimalType();
 
 
         System.out.println("Give me customers phone number");
@@ -70,19 +67,21 @@ public class Receptionist implements ProtocolFunctionInterface {
         }
     }
 
-    public static void checkAnimalType(String s){
+    public static void addAnimalType(){
 
-        AnimalType[] animalTypes = AnimalType.values();
-        while (true) {
-            for (AnimalType animalType : animalTypes) {
+        System.out.println("Choose an animal type: \nPress 1 for rabbit\nPress 2 for dog\nPress 3 for cat\nPress 4 for bird");
+        String choice = scan.nextLine();
 
-                if (s.equals(animalType.toString())) {
-                    customerInformation.add(s);
-                }
+            switch (choice){
+                case "1" -> customerInformation.add(RABBIT.toString());
+                case "2" -> customerInformation.add(DOG.toString());
+                case "3" -> customerInformation.add(CAT.toString());
+                case "4" -> customerInformation.add(BIRD.toString());
+                default -> addAnimalType();
 
             }
-        }
     }
+
 
     private static void printInformationFromList() {
         Path path = Paths.get("customersInfo");
