@@ -11,6 +11,7 @@ public class Main {
 
     public static void startRun() {
         PersonFactory pf = PersonFactory.getInstance();
+        System.out.println("    **************");
         System.out.println("Press 1 for receptionist\nPress 2 to animal handler");
         String s = scan.nextLine().trim();
         while (true) {

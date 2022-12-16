@@ -50,7 +50,6 @@ public class Receptionist implements ProtocolFunctionInterface {
         System.out.println(customerName + " has been added as a customer with a pet " +
                 customerList.get(customerList.size() - 1).getPet().getType() + " whose name is " +
                 customerList.get(customerList.size() - 1).getPet().getPetName() + "."); //TODO: Lings changes
-        System.out.println("\n    ********************\n");
 
         //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av nuvarande storleken av listan för att skicka rätt index.
         writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
@@ -151,7 +150,6 @@ public class Receptionist implements ProtocolFunctionInterface {
             while ((s = br.readLine()) != null) {
                 System.out.println(s);
             }
-            System.out.println("\n    ********************\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -227,7 +225,8 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
     @Override
-    public void printChoices() {  // återkommande kod i programmet som delades upp i en metod istället.
+    public void printChoices() {// återkommande kod i programmet som delades upp i en metod istället.
+        System.out.println("    ********************");
         System.out.println("""
                 1 to add customer
                 2 to add print customer information
