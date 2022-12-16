@@ -27,7 +27,6 @@ public class Receptionist implements ProtocolFunctionInterface {
 
         scan = new Scanner(System.in);
         customerInformation = new ArrayList<>();  // skapar upp listan av customers här för att spara minne.
-        /*customerList*/ //Skapar upp listan av customers(klassen/objektet).
         instance.protocol();
         return instance;
     }
@@ -55,33 +54,7 @@ public class Receptionist implements ProtocolFunctionInterface {
         Receptionist.getInstance().protocol();
     }
 
-    //    private static void addCustomer() {
-//        /*
-//        Frågar användaren om namn på person, namn på djur och telefonnummer / kontaktuppgifter.
-//        Sparar informationen i customerInformation listan.
-//        */
-//
-//        String s;
-//        System.out.println("Give me customer name");
-//        s = scan.nextLine();
-//        String name = s;
-//        customerInformation.add(s);
-//
-//        System.out.println("Give me customer's animals name");
-//        s = scan.nextLine();
-//        String animalName = s;
-//        customerInformation.add(s);
-//
-//        System.out.println("Give me customers phone number");
-//        s = scan.nextLine();
-//        customerInformation.add(s);
-//        String phoneNumber = s;
-//        if (name != null && animalName != null && phoneNumber != null) {
-//            // Skriver namn, djurnamn, och telefonnummer till textfil.
-//            writeCustomerInfoToFile(name, animalName, phoneNumber);
-//        }
-//        Receptionist.getInstance().protocol();  // kallar på protokollklassen igen.
-//    }
+
     private static void writeCustomerInfoToFile(Customer c) {
         // metoden som skriver till textfilen.
         File file = new File("customersInfo");
@@ -98,34 +71,12 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
 
-    //    private static void writeCustomerInfoToFile(String customerName, String animal, String phoneNumber) {
-//        // metoden som skriver till textfilen.
-//        File file = new File("customersInfo");
-//        List<String> information = new ArrayList<>();
-//        information.add(customerName + " " + animal + " " + phoneNumber);
-//        try (FileWriter fw = new FileWriter(file, true)) {
-//            // skriver till textfilen med en
-//            // FileWriter och appendar
-//            // ligger i en try-with resources så skrivaren stängs själv.
-//            for (String s : information) {
-//                fw.write(s);
-//                fw.write("\n");
-//            }
-//        } catch (IOException e) {
-//            e.getStackTrace();
-//        }
-//    }
     private static void printInformationFromList() {
-        System.out.println("customerlistSize=" + customerList.size());
         System.out.println("Customers in system:");
-        System.out.println("Name\t\t\tPhoneNumber\t\t\tPet Type\t\tPet Name");
-        System.out.println("customerlistSize=" + customerList.size());
+        System.out.println("Name\t\t\tPhoneNumber\t\tPet Type\tPet Name");
 
         Iterator var2 = customerList.iterator();
 
-        /*System.out.println("DEBUG: 0=" + customerList.get(0).getName());
-        System.out.println("DEBUG: 1=" + customerList.get(1).getName());
-        System.out.println("DEBUG: 0=" + customerList.get(0).getPet().getPetName());*/
 
         while (var2.hasNext()) {
             Customer c = (Customer) var2.next();
@@ -134,21 +85,10 @@ public class Receptionist implements ProtocolFunctionInterface {
             String petType = c.getPet().getType();
             String petName = c.getPet().getPetName();
 
-            String paddedName = String.format("%-15s", name);
-            String paddedphNumber = String.format("%-15s", phNumber);
-            String paddedpetType = String.format("%-10s", petType.trim());
-            System.out.println(paddedName + paddedphNumber /*+ paddedpetType*/ + petName);
-        }
-
-        /*        System.out.println();*/
-        Path path = Paths.get("customersInfo");  // TODO: visa Thomas skriver ut information.
-        try (BufferedReader br = Files.newBufferedReader(path)) {
-            String s;
-            while ((s = br.readLine()) != null) {
-                System.out.println(s);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            String paddedName = String.format("%-16s", name);
+            String paddedphNumber = String.format("%-16s", phNumber);
+            String paddedpetType = String.format("%-12s", petType.trim());
+            System.out.println(paddedName + paddedphNumber + paddedpetType + petName);
         }
     }
 
@@ -159,25 +99,14 @@ public class Receptionist implements ProtocolFunctionInterface {
         try {
             Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
-                System.out.println("DEBUG: Försöker läsa in en data från fil");
+//                System.out.println("DEBUG: Försöker läsa in en data från fil");
                 if (readTextFile.hasNextLine()) {
                     String customerInfo = readTextFile.nextLine();
-                    System.out.println("DEBUG: Lyckades läsa in sträng: CustomerInfo: " + customerInfo);
-                    System.out.println("DEBUG: Substringade namn= " + customerInfo.substring(0, customerInfo.indexOf(':')));
-                    System.out.println("DEBUG: Substringade telenummer=" + customerInfo.substring(customerInfo.indexOf(':')));
                     customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':'))));
-                    System.out.println("DEBUG: Lyckades lägga in namn&nr i lista");
-                    System.out.println("DEBUG: Storlek på lista=" + customerList.size());
                     if (readTextFile.hasNextLine()) {
-                        System.out.println("DEBUG: Försöker läsa in petInfo");
                         String petInfo = readTextFile.nextLine();
-                        System.out.println("DEBUG: Substringa petType=" + petInfo.substring(0, petInfo.indexOf(':')));
-                        System.out.println("DEBUG: Substringade petName=" + petInfo.substring(petInfo.indexOf(':')));
-                        customerList.get(customerList.size() - 1).setPetType(petInfo.substring(petInfo.indexOf(':')), petInfo.substring(0, petInfo.indexOf(':')));
-                        System.out.println("DEBUG: La till petType och petName");
-                        System.out.println("DEBUG: Kundnamn: " + customerList.get(customerList.size() - 1).getName());
-                        System.out.println("DEBUG: Kundens djur: " + customerList.get(customerList.size() - 1).getPet().getPetName());
 
+                        customerList.get(customerList.size() - 1).setPetType(petInfo.substring(0, petInfo.indexOf(':')), petInfo.substring(petInfo.indexOf(':')));
                     }
                 }
             }
@@ -187,24 +116,12 @@ public class Receptionist implements ProtocolFunctionInterface {
         }
     }
 
-//    private static void printInformationFromList() {
-//        // Metod för att hämta information från textfilen customerInfo.
-//        // Med hjälp av files
-//
-//        Path path = Paths.get("customersInfo");
-//        try {
-//            System.out.println(Files.readAllLines(path));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            Receptionist.getInstance().protocol();  // Kallar alltid på protokollet.
-//        }
-//
-//    }
 
     @Override
     public void protocol() {
-//        fillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
+        if(customerList.size()==0) {
+            fillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
+        }
         printChoices();
         String s = scan.nextLine();
         switch (s) {

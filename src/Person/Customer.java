@@ -40,24 +40,12 @@ public class Customer extends Person {
 
 
         switch (petType.toLowerCase()) {
-            case "dog":
-                pet = new Dog(petName);
-                break;
-            case "cat":
-                pet=new Cat(petName);
-                break;
-            case "rabbit":
-                pet=new Rabbit(petName);
-                break;
-            case "bird":
-                pet=new Bird(petName);
-                break;
+            case "dog" -> pet = new Dog(petName);
+            case "cat" -> pet = new Cat(petName);
+            case "rabbit" -> pet = new Rabbit(petName);
+            case "bird" -> pet = new Bird(petName);
+            default -> pet=new Cat(petName);
         }
-//        pet=new Dog(name);
-//        pet=new Cat(name);
-//        pet=new Rabbit(name);
-//        pet=new Bird(name);
-
 
     }
 }
