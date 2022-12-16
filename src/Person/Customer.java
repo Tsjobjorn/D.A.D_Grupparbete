@@ -28,7 +28,8 @@ public class Customer extends Person {
 
     public void addPetNameAndType() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Pet type? Dog, Cat, Rabitt, Bird.");
+        System.out.println("Choice a pet type?\nPress 1 for dog\n Press 2 for cat" +
+                            "\nPress 3 for Rabitt\nPress 4 for Bird."); //TODO Lings changes
         String petType = scanner.nextLine().trim();  // todo: visa Thomas
         System.out.println("Pet name?");
         String petName = scanner.nextLine().trim();
@@ -39,19 +40,22 @@ public class Customer extends Person {
     public void setPetType(String petType, String petName) {
 
 
-        switch (petType.toLowerCase()) {
-            case "dog":
+        switch (petType) {
+            case "1":
                 pet = new Dog(petName);
                 break;
-            case "cat":
+            case "2":
                 pet=new Cat(petName);
                 break;
-            case "rabbit":
+            case "3":
                 pet=new Rabbit(petName);
                 break;
-            case "bird":
+            case "4":
                 pet=new Bird(petName);
                 break;
+            default:
+                System.out.println("Invalid input. Please try again");
+                addPetNameAndType();
         }
 //        pet=new Dog(name);
 //        pet=new Cat(name);

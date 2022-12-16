@@ -83,13 +83,15 @@ public class AnimalHandler implements ProtocolFunctionInterface {
     private static void informationAnimal() {  // metod som skriver ut information om djuret.
 
         if (fedAndWalkedAniamls.size() > 0) {  // Om listan är större än 0
-            System.out.println("Animals that have been walked and fed: " + fedAndWalkedAniamls);
+            System.out.println("Animals that have been walked and fed: " );
+            printOutAnimals(fedAndWalkedAniamls);//TODO: Lings changes
         } else {
             System.out.println("No animal has been walked yet");  // om listan inte är större 0 så är listan tom och utskrift.
         }
 
         if (animalsNotFedNorWalked.size() > 0) {
-            System.out.println("Still not walked and fed animals: " + animalsNotFedNorWalked);
+            System.out.println("Still not walked and fed animals: ");
+            printOutAnimals(animalsNotFedNorWalked); //TODO: Lings changes
             // Om listan fortfarande är större än 0 så finns det djur som inte har blivit matade / promenerade
         } else {
             System.out.println("All animals have been walked and fed");  // annars har alla djur gått.
@@ -101,9 +103,10 @@ public class AnimalHandler implements ProtocolFunctionInterface {
     private static void walkAnimalAndFeed() {  // metod för att gå och mata djur
         while (true) {
             System.out.println("which animal would you like to walk and feed?");
-            String s = scan.nextLine();
+            String s = scan.nextLine().trim();
+
             for (String value : animalsNotFedNorWalked) {
-                if (value.equals(s)) {  // itererar igenom listan animalsNotFedNorWalked
+                if (value.equalsIgnoreCase(s)) {  // itererar igenom listan animalsNotFedNorWalked//TODO: Lings changes
                     fedAndWalkedAniamls.add(value);
                     // Om scannern matchar value (namn i listan)
                     // Så läggs det till i en ny lista för att hålla koll på djur som blivit rastade etc.
@@ -115,6 +118,18 @@ public class AnimalHandler implements ProtocolFunctionInterface {
             }
             System.out.println("No animal with that name exist, try again");  // annars finns inte djuret med i listan
         }
+    }
+
+    private static void printOutAnimals(List<String> animals) {
+        int counter = 1;
+        if (animals.size() > 0) {
+            for (String value : animals) {
+                System.out.println(counter + ". " + value);
+                counter++;
+            }
+        }
+        else
+            System.out.println("No animal fund");
     }
 
     private static void removeFromList(String name) {
