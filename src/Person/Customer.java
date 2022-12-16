@@ -19,6 +19,9 @@ public class Customer extends Person {
     public void setPet(Animal pet) {
         this.pet = pet;
     }
+    String petType;
+    String petName;
+    Scanner scanner = new Scanner(System.in);
 
 
     public Customer(String name, String phoneNr) {
@@ -27,13 +30,28 @@ public class Customer extends Person {
 
 
     public void addPetNameAndType() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Choice a pet type?\nPress 1 for dog\n Press 2 for cat" +
+
+        System.out.println("\n    ********************\n");
+        System.out.println("Choice a pet type?\nPress 1 for dog\nPress 2 for cat" +
                             "\nPress 3 for Rabitt\nPress 4 for Bird."); //TODO Lings changes
-        String petType = scanner.nextLine().trim();  // todo: visa Thomas
+        petType = scanner.nextLine().trim();  // todo: visa Thomas
+
+        checkPetName(petName); // TODO: Lings changes
+
+
+    }
+
+    private void checkPetName(String petName) { //TODO: Lings changes
+
         System.out.println("Pet name?");
-        String petName = scanner.nextLine().trim();
-        setPetType(petType, petName);
+        petName = scanner.nextLine().trim();
+        if (petName.isBlank() || petName == null) {
+            System.err.println("Invalid pet name. Try again");
+            checkPetName(petName);
+        }
+        else {
+            setPetType(petType, petName);
+        }
 
     }
 
@@ -54,7 +72,7 @@ public class Customer extends Person {
                 pet=new Bird(petName);
                 break;
             default:
-                System.out.println("Invalid input. Please try again");
+                System.err.println("Invalid input. Please try again"); //TODO: Lings changes
                 addPetNameAndType();
         }
 //        pet=new Dog(name);

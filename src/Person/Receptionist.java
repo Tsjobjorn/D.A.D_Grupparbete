@@ -47,7 +47,10 @@ public class Receptionist implements ProtocolFunctionInterface {
         System.out.println("DEBUG: La till customer i customerList");
         //Skapar upp pet(Animal) under customer objektet, tar nuvarande storleken på listan som index for vilket customer som ska få pet.
         customerList.get(customerList.size() - 1).addPetNameAndType();
-        System.out.println(customerName + " has been added as a customer with a pet " + customerList.get(customerList.size() - 1).getPet().getType() + ".");
+        System.out.println(customerName + " has been added as a customer with a pet " +
+                customerList.get(customerList.size() - 1).getPet().getType() + " whose name is " +
+                customerList.get(customerList.size() - 1).getPet().getPetName() + "."); //TODO: Lings changes
+        System.out.println("\n    ********************\n");
 
         //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av nuvarande storleken av listan för att skicka rätt index.
         writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
@@ -117,6 +120,7 @@ public class Receptionist implements ProtocolFunctionInterface {
 //    }
     private static void printInformationFromList() {
         System.out.println("customerlistSize=" + customerList.size());
+        System.out.println("\n    ********************\n");
         System.out.println("Customers in system:");
         System.out.println("Name\t\t\tPhoneNumber\t\t\tPet Type\t\tPet Name");
         System.out.println("customerlistSize=" + customerList.size());
@@ -147,6 +151,7 @@ public class Receptionist implements ProtocolFunctionInterface {
             while ((s = br.readLine()) != null) {
                 System.out.println(s);
             }
+            System.out.println("\n    ********************\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

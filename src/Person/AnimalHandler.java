@@ -67,7 +67,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
             // Returnerar dig till instansen av Receptionisten och pga att det
             // är en singleton så är det alltid samma objekt och inga nya instanser skapas / sparar minne
 
-            default -> System.out.println("Invalid input. Try again");
+            default -> System.err.println("Invalid input. Try again");
         }
         protocol();  // Om inte protokollet inte skickar dig vidare till en ny metod 1, 2 eller 3 så körs protokollet om.
     }
@@ -85,16 +85,18 @@ public class AnimalHandler implements ProtocolFunctionInterface {
         if (fedAndWalkedAniamls.size() > 0) {  // Om listan är större än 0
             System.out.println("Animals that have been walked and fed: " );
             printOutAnimals(fedAndWalkedAniamls);//TODO: Lings changes
+            System.out.println("    ********************");
         } else {
-            System.out.println("No animal has been walked yet");  // om listan inte är större 0 så är listan tom och utskrift.
+            System.err.println("No animal has been walked yet");  // om listan inte är större 0 så är listan tom och utskrift.
         }
 
         if (animalsNotFedNorWalked.size() > 0) {
             System.out.println("Still not walked and fed animals: ");
             printOutAnimals(animalsNotFedNorWalked); //TODO: Lings changes
+            System.out.println("    ********************");
             // Om listan fortfarande är större än 0 så finns det djur som inte har blivit matade / promenerade
         } else {
-            System.out.println("All animals have been walked and fed");  // annars har alla djur gått.
+            System.err.println("All animals have been walked and fed");  // annars har alla djur gått.
         }
 
         getInstance().protocol();  // Kallar protokoll-klassen
@@ -116,7 +118,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
                     break;
                 }
             }
-            System.out.println("No animal with that name exist, try again");  // annars finns inte djuret med i listan
+            System.err.println("No animal with that name exist, try again");  // annars finns inte djuret med i listan
         }
     }
 
@@ -129,7 +131,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
             }
         }
         else
-            System.out.println("No animal fund");
+            System.err.println("No animal fund");
     }
 
     private static void removeFromList(String name) {
