@@ -35,12 +35,21 @@ public class AnimalHandler implements ProtocolFunctionInterface {
         try (BufferedReader br = Files.newBufferedReader(path)) {
             String[] allAnimals;  // en array som håller i djurnamn utelämnar ägare och telefonnummer.
             String s;
-            int counter;  // Räknare som håller koll på vilket index för substring
+            int counter = 0;  // Räknare som håller koll på vilket index för substring
             while ((s = br.readLine()) != null) {
-                counter = s.indexOf(" ");  // counter tar första indexet med ett whitespace och sparar index av typen int
+                counter++;
+                if(counter % 2 == 0){
+                    allAnimals = s.split(":");
+                    animalsNotFedNorWalked.add(allAnimals[1]);
+                }
+
+                /*counter = s.indexOf(" ");  // counter tar första indexet med ett whitespace och sparar index av typen int
                 animalNames.add(s.substring(counter, s.lastIndexOf(" ")).trim());  // animalNames sparar namnet av djur med hjälp av counter för index
                 allAnimals = s.split(" ");  // En array som sparar ENDAST djurets namn och nollställs vid varje körning. (är tanken)
-                animalsNotFedNorWalked.add(allAnimals[1]);  // Lista med djur som inte har blivit matade eller promenerade.
+                animalsNotFedNorWalked.add(allAnimals[1]);  // Lista med djur som inte har blivit matade eller promenerade.*/
+                // todo: Gammalt skräp, kanske kan ta bort?
+
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,7 +104,6 @@ public class AnimalHandler implements ProtocolFunctionInterface {
             String s = scan.nextLine();
             for (String value : animalsNotFedNorWalked) {
                 if (value.equals(s)) {  // itererar igenom listan animalsNotFedNorWalked
-
                     fedAndWalkedAniamls.add(value);
                     // Om scannern matchar value (namn i listan)
                     // Så läggs det till i en ny lista för att hålla koll på djur som blivit rastade etc.
@@ -115,6 +123,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
 
         animalsNotFedNorWalked.removeIf(name::equals);
         walkedAnimals(fedAndWalkedAniamls);
+
     }
 
     public static void walkedAnimals(List<String> walkedAnimals) {  // tar emot en lista med djur som har blivit rastade

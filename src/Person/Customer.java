@@ -29,9 +29,9 @@ public class Customer extends Person {
     public void addPetNameAndType() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pet type? Dog, Cat, Rabitt, Bird.");
-        String petType = scanner.nextLine();
+        String petType = scanner.nextLine().trim();  // todo: visa Thomas
         System.out.println("Pet name?");
-        String petName = scanner.nextLine();
+        String petName = scanner.nextLine().trim();
         setPetType(petType, petName);
 
     }
