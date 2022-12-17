@@ -36,7 +36,8 @@ public class AnimalHandler implements ProtocolFunctionInterface {
         while (var.hasNext()) {
             Customer c = (Customer) var.next();
             if (!c.getPet().isFed()) {
-                String petName = c.getName();
+                String petName = c.getPet().getPetName();
+                System.out.println(petName);
             }
         }
         System.out.println();

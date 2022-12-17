@@ -108,11 +108,11 @@ public class Receptionist implements ProtocolFunctionInterface {
 
                 if (readTextFile.hasNextLine()) {
                     String customerInfo = readTextFile.nextLine();
-                    customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':'))));
+                    customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':')+1)));
                     if (readTextFile.hasNextLine()) {
                         String petInfo = readTextFile.nextLine();
 
-                        customerList.get(customerList.size() - 1).setPetType(petInfo.substring(0, petInfo.indexOf(':')), petInfo.substring(petInfo.indexOf(':')));
+                        customerList.get(customerList.size() - 1).setPetType(petInfo.substring(0, petInfo.indexOf(':')), petInfo.substring(petInfo.indexOf(':')+1));
                     }
                 }
             }
