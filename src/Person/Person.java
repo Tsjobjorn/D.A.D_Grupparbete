@@ -1,15 +1,23 @@
 package Person;
 
-public class Person {
+public abstract class Person {
     String name;
-    String personNr;
+
     String phoneNr;
 
-    public Person(){}
-    public Person(String name, String personNr, String phoneNr){
-        this.name = name;
-        this.personNr = personNr;
-        this.phoneNr = phoneNr;
+    public String getName() {
+        return name;
+    }
 
+
+
+    public String getPhoneNr() {
+        return phoneNr;
+    }
+
+    public Person(){}
+    public Person(String name, String phoneNr){
+        this.name = name;
+        this.phoneNr = phoneNr;
     }
 }
