@@ -78,6 +78,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
             if(s.equalsIgnoreCase(c.getPet().getPetName())){
                 c.getPet().setFed(true);
                 System.out.println(c.getPet().getPetName()+" have been set as fed.");
+                System.out.println();
                 break;
             }
 
