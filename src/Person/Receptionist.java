@@ -15,9 +15,17 @@ import java.util.Scanner;
 
 public class Receptionist implements ProtocolFunctionInterface {
     private static List<String> customerInformation;  // lista som sparar information som skrivs till textfil.
+
+
+
+
     private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  // TODO: Flyttade denna till globala scope
     private static Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
     public static Scanner scan;  // global användare av en scanner.
+
+    public static List<Customer> getCustomerList() {
+        return customerList;
+    }
 
     private Receptionist() {
     }
@@ -75,11 +83,11 @@ public class Receptionist implements ProtocolFunctionInterface {
         System.out.println("Customers in system:");
         System.out.println("Name\t\t\tPhoneNumber\t\tPet Type\tPet Name");
 
-        Iterator var2 = customerList.iterator();
+        Iterator var = customerList.iterator();
 
 
-        while (var2.hasNext()) {
-            Customer c = (Customer) var2.next();
+        while (var.hasNext()) {
+            Customer c = (Customer) var.next();
             String name = c.getName();
             String phNumber = c.getPhoneNr();
             String petType = c.getPet().getType();
@@ -88,12 +96,12 @@ public class Receptionist implements ProtocolFunctionInterface {
             String paddedName = String.format("%-16s", name);
             String paddedphNumber = String.format("%-16s", phNumber);
             String paddedpetType = String.format("%-12s", petType.trim());
-            System.out.println(paddedName + paddedphNumber + paddedpetType + petName);
+            System.out.println(paddedName + paddedphNumber + paddedpetType + petName+"\n");
         }
     }
 
     //Metod som fyller på befintliga kunder i filen till customerList
-    private void fillCustomerListFromFile() {
+    protected static void fillCustomerListFromFile() {
 //        String customerInfo;
 //        String petInfo;
         try {
