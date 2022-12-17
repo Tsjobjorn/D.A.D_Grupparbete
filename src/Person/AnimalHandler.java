@@ -25,7 +25,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
 
     public static AnimalHandler getInstance() {  // Hämtar en instance av klassen Animalhandler (singleton)
         scan = new Scanner(System.in);
-        readData();
+//        readData();
         instance.protocol();
         return instance;
     }
@@ -57,17 +57,26 @@ public class AnimalHandler implements ProtocolFunctionInterface {
 //        }
 //    }
 
-    private static void informationAnimal() {
-        System.out.println("Customers in system:");
-        System.out.println("Pet name\t\t\tPet Type\t\tFed");
+    private void displayUnfedPets() {
+        System.out.println("\nThe following animals have not been fed:");
+        Iterator var = getIterator();
+        while (var.hasNext()) {
+            Customer c = (Customer) var.next();
+            if (!c.getPet().isFed()) {
+                String petName = c.getName();
+            }
+        }
+        System.out.println();
+    }
 
-        Iterator var = Receptionist.getInstance().getCustomerList().iterator();
-
+    private void informationAnimal() {
+        System.out.println("Pet name\t\t\tPet Type\t\tFed"); //Skippa visa pet Type?
+        Iterator var = getIterator();
 
         while (var.hasNext()) {
             Customer c = (Customer) var.next();
             String petName = c.getName();
-            String petType= c.getPet().getType();
+            String petType = c.getPet().getType();
             String fedStatus;
             if (c.getPet().isFed()) {
                 fedStatus = ("Has been fed");
@@ -75,12 +84,33 @@ public class AnimalHandler implements ProtocolFunctionInterface {
                 fedStatus = ("Needs to be fed");
             }
 
-
-            String paddedppetName = String.format("%-16s", petName);
+            String paddedpetName = String.format("%-16s", petName);
             String paddedpetType = String.format("%-12s", petType.trim());
-            System.out.println(paddedppetName + paddedpetType + paddedpetType + fedStatus + "\n");
+            System.out.println(paddedpetName + paddedpetType + paddedpetType + fedStatus + "\n");
         }
     }
+
+    private static Iterator getIterator(){
+        Iterator var = Receptionist.getInstance().getCustomerList().iterator();
+        return var;
+    }
+    private void feedAnimal() {
+        Iterator var = Receptionist.getInstance().getCustomerList().iterator(); //todo kolla om det bara är iteratorlistan som blir markerad eller den faktiska listan.
+        displayUnfedPets();
+        System.out.println("Enter the name of the animal you want to set to fed.");
+        String s = scan.nextLine();
+        while (var.hasNext()) {
+            Customer c = (Customer) var.next();
+            if(s.equalsIgnoreCase(c.getPet().getPetName())){
+                c.getPet().setFed(true);
+                System.out.println(c.getPet().getPetName()+" have been set as fed.");
+                break;
+            }
+
+        }
+    }
+
+
 
 
     @Override
@@ -90,7 +120,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
         }
         printChoices();
         switch (scan.nextLine()) {
-            case "1" -> walkAnimalAndFeed();  // Case 1 skickar dig till walkingAnimalAndFeed() metoden osv osv.
+            case "1" -> feedAnimal();  // Case 1 skickar dig till feedAnimal() metoden osv osv.
             case "2" -> informationAnimal();
             case "3" -> Receptionist.getInstance();
             // Returnerar dig till instansen av Receptionisten och pga att det

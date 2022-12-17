@@ -102,12 +102,10 @@ public class Receptionist implements ProtocolFunctionInterface {
 
     //Metod som fyller på befintliga kunder i filen till customerList
     protected static void fillCustomerListFromFile() {
-//        String customerInfo;
-//        String petInfo;
         try {
             Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
-//                System.out.println("DEBUG: Försöker läsa in en data från fil");
+
                 if (readTextFile.hasNextLine()) {
                     String customerInfo = readTextFile.nextLine();
                     customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':'))));
