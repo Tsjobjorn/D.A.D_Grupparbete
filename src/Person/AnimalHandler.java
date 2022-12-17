@@ -48,7 +48,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
 
         while (var.hasNext()) {
             Customer c = (Customer) var.next();
-            String petName = c.getName();
+            String petName = c.getPet().getPetName();
             String petType = c.getPet().getType();
             String fedStatus;
             if (c.getPet().isFed()) {
@@ -57,18 +57,18 @@ public class AnimalHandler implements ProtocolFunctionInterface {
                 fedStatus = ("Needs to be fed");
             }
 
-            String paddedpetName = String.format("%-16s", petName);
-            String paddedpetType = String.format("%-12s", petType.trim());
-            System.out.println(paddedpetName + paddedpetType + paddedpetType + fedStatus + "\n");
+            String paddedpetName = String.format("%-20s", petName);
+            String paddedpetType = String.format("%-16s", petType.trim());
+            System.out.println(paddedpetName + paddedpetType  + fedStatus + "\n");
         }
     }
 
     private static Iterator getIterator(){
-        Iterator var = Receptionist.getInstance().getCustomerList().iterator();
+        Iterator var = Receptionist.getCustomerList().iterator();
         return var;
     }
     private void feedAnimal() {
-        Iterator var = Receptionist.getInstance().getCustomerList().iterator(); //todo kolla om det bara är iteratorlistan som blir markerad eller den faktiska listan.
+        Iterator var = Receptionist.getCustomerList().iterator(); //todo kolla om det bara är iteratorlistan som blir markerad eller den faktiska listan.
         displayUnfedPets();
         System.out.println("Enter the name of the animal you want to set to fed.");
         String s = scan.nextLine();
@@ -88,8 +88,8 @@ public class AnimalHandler implements ProtocolFunctionInterface {
 
     @Override
     public void protocol() {  // en protokollmetod för att kontrollera vilket state programmet befinner sig i.
-        if (Receptionist.getInstance().getCustomerList().size() == 0) {
-            Receptionist.getInstance().fillCustomerListFromFile();
+        if (Receptionist.getCustomerList().size() == 0) {
+            Receptionist.fillCustomerListFromFile();
         }
         printChoices();
         switch (scan.nextLine()) {
