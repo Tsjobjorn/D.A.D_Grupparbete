@@ -13,6 +13,6 @@ public class Rabbit extends Animal {
     @Override
     public void getFoodInfo(){
         System.out.println(getPetName() + " needs to have " + getMängd() + "kg " + getFoodType() +
-                ". Press enter when you've fed the " + getPetName());
+                ". Press enter when you've fed " + getPetName());
     }
 }

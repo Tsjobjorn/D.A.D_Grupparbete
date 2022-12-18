@@ -15,10 +15,6 @@ import java.util.Scanner;
 
 public class Receptionist implements ProtocolFunctionInterface {
     private static List<String> customerInformation;  // lista som sparar information som skrivs till textfil.
-
-
-
-
     private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  // TODO: Flyttade denna till globala scope
     private static Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
     public static Scanner scan;  // global användare av en scanner.
