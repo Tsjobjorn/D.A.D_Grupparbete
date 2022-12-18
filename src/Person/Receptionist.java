@@ -40,12 +40,14 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
 
-    public void addCustomer() {
+    public void addCustomer() { //TODO Changes LW
         /*Scanner scanner = new Scanner(System.in);*/
         System.out.println("Customer name?");
         String customerName = scan.nextLine();
+        checkInput(customerName);
         System.out.println("Customer phone number?");
         String addPhoneNr = scan.nextLine();
+        checkInput(addPhoneNr);
 
         //Skapar upp en customer, lägger till i listan.
         System.out.println("DEBUG: storlek på listan=" + customerList.size());
@@ -60,6 +62,13 @@ public class Receptionist implements ProtocolFunctionInterface {
         writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
 
         Receptionist.getInstance().protocol();
+    }
+
+    public void checkInput(String input){
+        if (input.isBlank() || input == null){
+            System.out.println("Invalid input. Try again.");
+            addCustomer();
+        }
     }
 
 
