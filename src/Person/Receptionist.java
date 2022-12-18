@@ -66,7 +66,7 @@ public class Receptionist implements ProtocolFunctionInterface {
 
     public void checkInput(String input){
         if (input.isBlank() || input == null){
-            System.out.println("Invalid input. Try again.");
+            System.err.println("Invalid input. Try again.");
             addCustomer();
         }
     }
@@ -110,9 +110,9 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
     //Metod som fyller på befintliga kunder i filen till customerList
-    protected static void fillCustomerListFromFile() {
-        try {
-            Scanner readTextFile = new Scanner(new File("customersInfo"));
+    protected static void fillCustomerListFromFile() { //TODO Lings changes (try with resources)
+        try (Scanner readTextFile = new Scanner(new File("customersInfo"))){
+           // Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
 
                 if (readTextFile.hasNextLine()) {
@@ -148,7 +148,7 @@ public class Receptionist implements ProtocolFunctionInterface {
             case "3" -> AnimalHandler.getInstance();
             // Om du vill byta till att vara en djurhanterare istället för receptionist
 
-            default -> System.out.println("Invalid input. Try again");
+            default -> System.err.println("Invalid input. Try again");
         }
         protocol();
     }
