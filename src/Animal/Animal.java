@@ -1,9 +1,30 @@
 package Animal;
 
-public abstract class Animal {
-        String petName;
-        boolean fed=false;
-        boolean walked=false;
+import LoggingTool.AnimalFood;
+
+public abstract class Animal implements AnimalInterface{
+
+
+    String petName;
+    boolean fed=false;
+    boolean walked=false;
+
+    AnimalFood foodType;
+
+    public double getMängd() {
+        return mängd;
+    }
+
+    public AnimalFood getFoodType() {
+        return foodType;
+    }
+
+    double mängd;
+
+    public Animal(AnimalFood foodType, double mängd) {
+        this.foodType = foodType;
+        this.mängd = mängd;
+    }
 
     public String getType() {
         return Type;
@@ -37,5 +58,10 @@ public abstract class Animal {
 
     public void setWalked(boolean walked) {
         this.walked = walked;
+    }
+
+    @Override
+    public void getFoodInfo(){
+        System.out.println("Default foodInfo");
     }
 }

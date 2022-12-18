@@ -17,7 +17,7 @@ public class Main {
             switch (s) {
                 case "1" -> pf.getProtocolFunctions(Data.RECEPTIONIST);
                 case "2" -> pf.getProtocolFunctions(Data.HANDLER);
-                default -> System.out.println("Invalid input try again. '1' for reception '2' for handler.");
+                default -> System.err.println("Invalid input try again. '1' for reception '2' for handler.");
             }
             s = scan.nextLine();
 

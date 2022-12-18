@@ -15,10 +15,6 @@ import java.util.Scanner;
 
 public class Receptionist implements ProtocolFunctionInterface {
     private static List<String> customerInformation;  // lista som sparar information som skrivs till textfil.
-
-
-
-
     private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  // TODO: Flyttade denna till globala scope
     private static Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
     public static Scanner scan;  // global användare av en scanner.
@@ -40,12 +36,14 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
 
-    public void addCustomer() {
+    public void addCustomer() { //TODO Changes LW
         /*Scanner scanner = new Scanner(System.in);*/
         System.out.println("Customer name?");
         String customerName = scan.nextLine();
+        checkInput(customerName);
         System.out.println("Customer phone number?");
         String addPhoneNr = scan.nextLine();
+        checkInput(addPhoneNr);
 
         //Skapar upp en customer, lägger till i listan.
         System.out.println("DEBUG: storlek på listan=" + customerList.size());
@@ -60,6 +58,13 @@ public class Receptionist implements ProtocolFunctionInterface {
         writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
 
         Receptionist.getInstance().protocol();
+    }
+
+    public void checkInput(String input){
+        if (input.isBlank() || input == null){
+            System.err.println("Invalid input. Try again.");
+            addCustomer();
+        }
     }
 
 
@@ -101,9 +106,9 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
     //Metod som fyller på befintliga kunder i filen till customerList
-    protected static void fillCustomerListFromFile() {
-        try {
-            Scanner readTextFile = new Scanner(new File("customersInfo"));
+    protected static void fillCustomerListFromFile() { //TODO Lings changes (try with resources)
+        try (Scanner readTextFile = new Scanner(new File("customersInfo"))){
+           // Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
 
                 if (readTextFile.hasNextLine()) {
@@ -139,7 +144,7 @@ public class Receptionist implements ProtocolFunctionInterface {
             case "3" -> AnimalHandler.getInstance();
             // Om du vill byta till att vara en djurhanterare istället för receptionist
 
-            default -> System.out.println("Invalid input. Try again");
+            default -> System.err.println("Invalid input. Try again");
         }
         protocol();
     }
