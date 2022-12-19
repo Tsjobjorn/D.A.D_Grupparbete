@@ -27,7 +27,7 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
 
-    public void addCustomer() {
+    private void addCustomer() {
         System.out.println("Customer name?");
         String customerName = scan.nextLine();
         checkInput(customerName);
@@ -43,7 +43,7 @@ public class Receptionist implements ProtocolFunctionInterface {
         Receptionist.getInstance().protocol();
     }
 
-    public void checkInput(String input){
+    private void checkInput(String input){
         if (input.isBlank() || input == null){
             System.err.println("Invalid input. Try again.");
             addCustomer();
