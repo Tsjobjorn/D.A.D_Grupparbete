@@ -1,13 +1,12 @@
 package Animal;
 
-import LoggingTool.AnimalFood;
 
 public abstract class Animal implements AnimalInterface{
 
 
     String petName;
     boolean fed=false;
-    boolean walked=false;
+
 
     AnimalFood foodType;
 
@@ -50,14 +49,6 @@ public abstract class Animal implements AnimalInterface{
 
     public void setFed(boolean fed) {
         this.fed = fed;
-    }
-
-    public boolean isWalked() {
-        return walked;
-    }
-
-    public void setWalked(boolean walked) {
-        this.walked = walked;
     }
 
     @Override

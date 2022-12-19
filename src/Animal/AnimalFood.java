@@ -1,4 +1,4 @@
-package LoggingTool;
+package Animal;
 
 public enum AnimalFood {
     SEEDS,

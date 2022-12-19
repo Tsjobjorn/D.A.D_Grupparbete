@@ -2,14 +2,11 @@ package Person;
 
 public abstract class Person {
     String name;
-
     String phoneNr;
 
     public String getName() {
         return name;
     }
-
-
 
     public String getPhoneNr() {
         return phoneNr;

@@ -1,6 +1,6 @@
 package Animal;
 
-import LoggingTool.AnimalFood;
+
 
 public class Rabbit extends Animal {
 

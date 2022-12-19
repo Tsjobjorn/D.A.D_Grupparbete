@@ -1,21 +1,14 @@
-package Person;
-
-import LoggingTool.ProtocolFunctionInterface;
-import Animal.*;
+import Person.Customer;
 
 import java.io.*;
-import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 public class Receptionist implements ProtocolFunctionInterface {
-    private static List<String> customerInformation;  // lista som sparar information som skrivs till textfil.
-    private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  // TODO: Flyttade denna till globala scope
+
+    private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  //
     private static Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
     public static Scanner scan;  // global användare av en scanner.
 
@@ -28,32 +21,22 @@ public class Receptionist implements ProtocolFunctionInterface {
 
     public static Receptionist getInstance() {
         // när instansen av receptionisten hämtas så körs listan igång och skickar användaren till protokollet.
-
         scan = new Scanner(System.in);
-        customerInformation = new ArrayList<>();  // skapar upp listan av customers här för att spara minne.
         instance.protocol();
         return instance;
     }
 
 
-    public void addCustomer() { //TODO Changes LW
-        /*Scanner scanner = new Scanner(System.in);*/
+    public void addCustomer() {
         System.out.println("Customer name?");
         String customerName = scan.nextLine();
         checkInput(customerName);
         System.out.println("Customer phone number?");
         String addPhoneNr = scan.nextLine();
         checkInput(addPhoneNr);
-
-        //Skapar upp en customer, lägger till i listan.
-        System.out.println("DEBUG: storlek på listan=" + customerList.size());
         customerList.add(new Customer(customerName, addPhoneNr));
-        System.out.println("DEBUG: storlek på listan=" + customerList.size());
-        System.out.println("DEBUG: La till customer i customerList");
-        //Skapar upp pet(Animal) under customer objektet, tar nuvarande storleken på listan som index for vilket customer som ska få pet.
         customerList.get(customerList.size() - 1).addPetNameAndType();
-        System.out.println(customerName + " has been added as a customer with a pet " + customerList.get(customerList.size() - 1).getPet().getType() + ".");
-
+        System.out.println(customerName + " has been added as a customer with a pet " + customerList.get(customerList.size() - 1).getPet().getType() + ".\n");
         //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av nuvarande storleken av listan för att skicka rätt index.
         writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
 
@@ -101,12 +84,13 @@ public class Receptionist implements ProtocolFunctionInterface {
             String paddedName = String.format("%-16s", name);
             String paddedphNumber = String.format("%-16s", phNumber);
             String paddedpetType = String.format("%-12s", petType.trim());
-            System.out.println(paddedName + paddedphNumber + paddedpetType + petName+"\n");
+            System.out.println(paddedName + paddedphNumber + paddedpetType + petName);
         }
+        System.out.println();
     }
 
     //Metod som fyller på befintliga kunder i filen till customerList
-    protected static void fillCustomerListFromFile() { //TODO Lings changes (try with resources)
+    protected static void fillCustomerListFromFile() {
         try (Scanner readTextFile = new Scanner(new File("customersInfo"))){
            // Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
