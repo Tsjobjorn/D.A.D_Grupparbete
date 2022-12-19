@@ -3,14 +3,12 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class AnimalHandler implements ProtocolFunctionInterface {
-    private static AnimalHandler instance = new AnimalHandler();
-    static Scanner scan;
+    private static final AnimalHandler instance = new AnimalHandler();
+    static Scanner scan = new Scanner(System.in);
 
     private AnimalHandler() {  // Tom konstruktor för singleton design pattern.
     }
     public static AnimalHandler getInstance() {  // Hämtar en instance av klassen Animalhandler (singleton)
-        scan = new Scanner(System.in);
-        instance.protocol();
         return instance;
     }
 
@@ -80,7 +78,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
         switch (scan.nextLine()) {
             case "1" -> feedAnimal();  // Case 1 skickar dig till feedAnimal() metoden osv osv.
             case "2" -> informationAnimal();
-            case "3" -> Receptionist.getInstance();
+            case "3" -> Receptionist.getInstance().protocol();
             // Returnerar dig till instansen av Receptionisten och pga att det
             // är en singleton så är det alltid samma objekt och inga nya instanser skapas / sparar minne
 

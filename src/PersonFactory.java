@@ -1,14 +1,12 @@
+/*
 public class PersonFactory {  // factory design pattern
 
-    private static PersonFactory instance = new PersonFactory();
+    private static final PersonFactory instance = new PersonFactory();
 
     private PersonFactory() {
     }
 
     public static PersonFactory getInstance(){
-        if(instance == null){
-            instance = new PersonFactory();
-        }
         return instance;
     }
 
@@ -21,8 +19,9 @@ public class PersonFactory {  // factory design pattern
 
         return switch (person) {
             // hämtar en singleton state för receptions klassen eller djurhanterare
-            case RECEPTIONIST -> Receptionist.getInstance();
+            case RECEPTIONIST -> Receptionist.getInstance().protocol();
             case HANDLER -> AnimalHandler.getInstance();
         };
     }
 }
+*/

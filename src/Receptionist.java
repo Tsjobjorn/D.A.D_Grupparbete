@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class Receptionist implements ProtocolFunctionInterface {
 
     private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  //
-    private static Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
-    public static Scanner scan;  // global användare av en scanner.
+    private static final Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
+    public static Scanner scan = new Scanner(System.in);  // global användare av en scanner.
 
     public static List<Customer> getCustomerList() {
         return customerList;
@@ -20,14 +20,10 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
     public static Receptionist getInstance() {
-        // när instansen av receptionisten hämtas så körs listan igång och skickar användaren till protokollet.
-        scan = new Scanner(System.in);
-        instance.protocol();
         return instance;
     }
 
-
-    public void addCustomer() {
+    private void addCustomer() {
         System.out.println("Customer name?");
         String customerName = scan.nextLine();
         checkInput(customerName);
@@ -43,8 +39,8 @@ public class Receptionist implements ProtocolFunctionInterface {
         Receptionist.getInstance().protocol();
     }
 
-    public void checkInput(String input){
-        if (input.isBlank() || input == null){
+    private void checkInput(String input){
+        if (input.isBlank()){
             System.err.println("Invalid input. Try again.");
             addCustomer();
         }
@@ -125,7 +121,7 @@ public class Receptionist implements ProtocolFunctionInterface {
 
             case "2" -> printInformationFromList();
 
-            case "3" -> AnimalHandler.getInstance();
+            case "3" -> AnimalHandler.getInstance().protocol();
             // Om du vill byta till att vara en djurhanterare istället för receptionist
 
             default -> System.err.println("Invalid input. Try again");
