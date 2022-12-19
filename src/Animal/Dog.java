@@ -1,7 +1,5 @@
 package Animal;
 
-import LoggingTool.AnimalFood;
-
 public class Dog extends Animal{
 
     public Dog(String name){
