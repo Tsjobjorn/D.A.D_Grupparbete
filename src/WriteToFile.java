@@ -15,10 +15,10 @@ public class WriteToFile {
 
     protected void writeCustomerInfoToFile(Customer c) {
         // metoden som skriver till textfilen.
-        File file = new File("customersInfo");
+        File file = new File(FilePath.CUSTOMER_INFO_FILE.data);
 
         //Skriver customer ut info till fil. customerName:CustomerPhoneNr ny rad.
-        //nästa rad skriver ut pet info till fil.
+        //Nästa rad skriver ut pet info till fil.
         try (FileWriter fw = new FileWriter(file, true)) {
             fw.write(c.getName() + ":" + c.getPhoneNr() + "\n");
             fw.write(c.getPet().getType() + ":" + c.getPet().getPetName() + "\n");

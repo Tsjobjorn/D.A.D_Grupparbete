@@ -36,7 +36,8 @@ public class ReadInputFromUser {
     }
 
     protected void readFillCustomerListFromFile() {
-        try (Scanner readTextFile = new Scanner(new File("customersInfo"))) {
+
+        try (Scanner readTextFile = new Scanner(new File(FilePath.CUSTOMER_INFO_FILE.data))) {
             // Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
 
