@@ -26,14 +26,23 @@ public class Customer extends Person {
     }
 
 
-    public void addPetNameAndType() {
+    public void addPetNameAndType() {//TODO Lings changes
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pet type? Dog, Cat, Rabitt, Bird.");
-        String petType = scanner.nextLine().trim();  // todo: visa Thomas
+        String petType = scanner.nextLine().trim();// todo: visa Thomas
+        checkInput(petType);
         System.out.println("Pet name?");
         String petName = scanner.nextLine().trim();
+        checkInput(petName);
         setPetType(petType, petName);
 
+    }
+
+    public void checkInput(String input){
+        if (input.isBlank() || input == null){
+            System.out.println("Invalid input. Try again.");
+            addPetNameAndType();
+        }
     }
 
     public void setPetType(String petType, String petName) {
@@ -45,6 +54,7 @@ public class Customer extends Person {
             case "rabbit" -> pet = new Rabbit(petName);
             case "bird" -> pet = new Bird(petName);
             default -> pet=new Cat(petName);
+
         }
 
     }
