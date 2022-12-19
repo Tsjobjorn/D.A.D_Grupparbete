@@ -39,7 +39,7 @@ public class Customer extends Person {
     }
 
     public void checkInput(String input){
-        if (input.isBlank() || input == null){
+        if (input.isBlank()){
             System.out.println("Invalid input. Try again.");
             addPetNameAndType();
         }
