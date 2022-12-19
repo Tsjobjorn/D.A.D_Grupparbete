@@ -48,11 +48,8 @@ public class Customer extends Person {
             String petType = scanner.nextLine().trim();
             switch (petType.toLowerCase()) {
                 case "dog":
-                    break;
                 case "cat":
-                    break;
                 case "bird":
-                    break;
                 case "rabbit":
                     break;
                 default:
