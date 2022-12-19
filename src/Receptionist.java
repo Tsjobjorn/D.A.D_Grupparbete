@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class Receptionist implements ProtocolFunctionInterface {
 
-    private static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  //
+    public static List<Customer> customerList = new ArrayList<>(); //Lista av typen Customer.  //
     private static final Receptionist instance = new Receptionist();  // Singleton instans av Receptionistklassen
-    public static Scanner scan = new Scanner(System.in);  // global användare av en scanner.
+    private static final Scanner scan = new Scanner(System.in);  // global användare av en scanner.
 
     public static List<Customer> getCustomerList() {
         return customerList;
@@ -24,44 +24,8 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
     private void addCustomer() {
-        System.out.println("Customer name?");
-        String customerName = scan.nextLine();
-        checkInput(customerName);
-        System.out.println("Customer phone number?");
-        String addPhoneNr = scan.nextLine();
-        checkInput(addPhoneNr);
-        customerList.add(new Customer(customerName, addPhoneNr));
-        customerList.get(customerList.size() - 1).addPetNameAndType();
-        System.out.println(customerName + " has been added as a customer with a pet " + customerList.get(customerList.size() - 1).getPet().getType() + ".\n");
-        //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av nuvarande storleken av listan för att skicka rätt index.
-        writeCustomerInfoToFile(customerList.get(customerList.size() - 1));
-
-        Receptionist.getInstance().protocol();
+        ReadInputFromUser.getInstance().addCustomer();
     }
-
-    private void checkInput(String input){
-        if (input.isBlank()){
-            System.err.println("Invalid input. Try again.");
-            addCustomer();
-        }
-    }
-
-
-    private static void writeCustomerInfoToFile(Customer c) {
-        // metoden som skriver till textfilen.
-        File file = new File("customersInfo");
-
-        //Skriver customer ut info till fil. customerName:CustomerPhoneNr ny rad.
-        //nästa rad skriver ut pet info till fil.
-        try (FileWriter fw = new FileWriter(file, true)) {
-            fw.write(c.getName() + ":" + c.getPhoneNr() + "\n");
-            fw.write(c.getPet().getType() + ":" + c.getPet().getPetName() + "\n");
-
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-    }
-
 
     private static void printInformationFromList() {
         System.out.println("Customers in system:");
@@ -86,25 +50,8 @@ public class Receptionist implements ProtocolFunctionInterface {
     }
 
     //Metod som fyller på befintliga kunder i filen till customerList
-    protected static void fillCustomerListFromFile() {
-        try (Scanner readTextFile = new Scanner(new File("customersInfo"))){
-           // Scanner readTextFile = new Scanner(new File("customersInfo"));
-            while (readTextFile.hasNextLine()) {
-
-                if (readTextFile.hasNextLine()) {
-                    String customerInfo = readTextFile.nextLine();
-                    customerList.add(new Customer((customerInfo.substring(0, customerInfo.indexOf(':'))), customerInfo.substring(customerInfo.indexOf(':')+1)));
-                    if (readTextFile.hasNextLine()) {
-                        String petInfo = readTextFile.nextLine();
-
-                        customerList.get(customerList.size() - 1).setPetType(petInfo.substring(0, petInfo.indexOf(':')), petInfo.substring(petInfo.indexOf(':')+1));
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error: " + e.getMessage());
-        }
+    protected void fillCustomerListFromFile() {
+        ReadInputFromUser.getInstance().readFillCustomerListFromFile();
     }
 
 

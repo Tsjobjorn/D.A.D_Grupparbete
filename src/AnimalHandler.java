@@ -72,7 +72,7 @@ public class AnimalHandler implements ProtocolFunctionInterface {
     @Override
     public void protocol() {  // en protokollmetod för att kontrollera vilket state programmet befinner sig i.
         if (Receptionist.getCustomerList().size() == 0) {
-            Receptionist.fillCustomerListFromFile();
+            Receptionist.getInstance().fillCustomerListFromFile();
         }
         printChoices();
         switch (scan.nextLine()) {
