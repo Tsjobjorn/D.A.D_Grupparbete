@@ -1,5 +1,7 @@
 package Person;
+
 import Animal.*;
+
 import java.util.Scanner;
 
 public class Customer extends Person {
