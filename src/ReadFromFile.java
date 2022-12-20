@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ReadFromFile {
-    static ReadFromFile read = new ReadFromFile();
+    private static final ReadFromFile read = new ReadFromFile();
 
     private ReadFromFile() {
     }
