@@ -6,10 +6,11 @@ import java.io.IOException;
 
 public class WriteToFile {
     private static final WriteToFile write = new WriteToFile();
+
     private WriteToFile() {
     }
 
-    public static WriteToFile getInstance(){
+    public static WriteToFile getInstance() {
         return write;
     }
 

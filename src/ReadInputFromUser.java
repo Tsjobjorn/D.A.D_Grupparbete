@@ -14,31 +14,9 @@ public class ReadInputFromUser {
         return read;
     }
 
-    protected void addCustomer() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Customer name?");
-        String customerName = scan.nextLine();
-        checkInput(customerName);
-        System.out.println("Customer phone number?");
-        String addPhoneNr = scan.nextLine();
-        checkInput(addPhoneNr);
-        Receptionist.customerList.add(new Customer(customerName, addPhoneNr));
-        Receptionist.customerList.get(Receptionist.customerList.size() - 1).addPetNameAndType();
-        System.out.println(customerName + " has been added as a customer with a pet " +
-                Receptionist.customerList.get(Receptionist.customerList.size() - 1).getPet().getType() + ".\n");
-
-        //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av
-        // nuvarande storleken av listan för att skicka rätt index.
-
-        WriteToFile.getInstance().writeCustomerInfoToFile(Receptionist.customerList.get(Receptionist.customerList.size() - 1));
-
-        Receptionist.getInstance().protocol();
-    }
-
     protected void readFillCustomerListFromFile() {
 
         try (Scanner readTextFile = new Scanner(new File(FilePath.CUSTOMER_INFO_FILE.data))) {
-            // Scanner readTextFile = new Scanner(new File("customersInfo"));
             while (readTextFile.hasNextLine()) {
 
                 if (readTextFile.hasNextLine()) {
@@ -64,10 +42,10 @@ public class ReadInputFromUser {
         }
     }
 
-    private void checkInput(String input) {
+    protected void checkInput(String input) {
         if (input.isBlank()) {
             System.err.println("Invalid input. Try again.");
-            addCustomer();
+            Receptionist.getInstance().addCustomer();
         }
     }
 }

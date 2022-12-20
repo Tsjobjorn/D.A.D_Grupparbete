@@ -23,7 +23,7 @@ public class Customer extends Person {
 
     public void addPetNameAndType() {
 
-        System.out.println("Pet type? Dog, Cat, Rabitt, Bird.");
+        System.out.println("Pet type? Dog, Cat, Rabbit, Bird.");
         String petType = addPetType();
         System.out.println("Pet name?");
         String petName = addPetName();

@@ -23,10 +23,6 @@ public class Receptionist implements ProtocolFunctionInterface {
         return instance;
     }
 
-    private void addCustomer() {
-        ReadInputFromUser.getInstance().addCustomer();
-    }
-
     private static void printInformationFromList() {
         System.out.println("Customers in system:");
         System.out.println("Name\t\t\tPhoneNumber\t\tPet Type\tPet Name");
@@ -49,21 +45,38 @@ public class Receptionist implements ProtocolFunctionInterface {
         System.out.println();
     }
 
-    //Metod som fyller på befintliga kunder i filen till customerList
-    protected void fillCustomerListFromFile() {
-        ReadInputFromUser.getInstance().readFillCustomerListFromFile();
+    protected void addCustomer() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Customer name?");
+        String customerName = scan.nextLine();
+        ReadInputFromUser.getInstance().checkInput(customerName);
+        System.out.println("Customer phone number?");
+        String addPhoneNr = scan.nextLine();
+        ReadInputFromUser.getInstance().checkInput(addPhoneNr);
+        Receptionist.customerList.add(new Customer(customerName, addPhoneNr));
+        Receptionist.customerList.get(Receptionist.customerList.size() - 1).addPetNameAndType();
+        System.out.println(customerName + " has been added as a customer with a pet " +
+                Receptionist.customerList.get(Receptionist.customerList.size() - 1).getPet().getType() + ".\n");
+
+        //Skickar in customer objektet i metoden writeCustomerInfoToFIle. Använder sig av
+        // nuvarande storleken av listan för att skicka rätt index.
+
+        WriteToFile.getInstance().writeCustomerInfoToFile(Receptionist.customerList.get(Receptionist.customerList.size() - 1));
+
+        Receptionist.getInstance().protocol();
     }
 
+    //Metod som fyller på befintliga kunder i filen till customerList
 
     @Override
     public void protocol() {
-        if(customerList.size()==0) {
-            fillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
+        if (customerList.size() == 0) {
+            ReadInputFromUser.getInstance().readFillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
         }
         printChoices();
         String s = scan.nextLine();
         switch (s) {
-            case "1" -> addCustomer();
+            case "1" -> Receptionist.getInstance().addCustomer();
             // Tar emot states och delegerar användaren till specifika delar av programmet.
 
             case "2" -> printInformationFromList();
