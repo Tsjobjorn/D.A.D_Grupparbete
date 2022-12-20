@@ -16,7 +16,7 @@ public class ReadFromFile {
 
     protected void readFillCustomerListFromFile() {
 
-        try (Scanner readTextFile = new Scanner(new File(FilePath.CUSTOMER_INFO_FILE.data))) {
+        try (Scanner readTextFile = new Scanner(new File(FilePath.CUSTOMER_INFO_FILE.filePath))) {
             while (readTextFile.hasNextLine()) {
 
                 if (readTextFile.hasNextLine()) {

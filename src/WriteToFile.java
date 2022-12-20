@@ -16,7 +16,7 @@ public class WriteToFile {
 
     protected void writeCustomerInfoToFile(Customer c) {
         // metoden som skriver till textfilen.
-        File file = new File(FilePath.CUSTOMER_INFO_FILE.data);
+        File file = new File(FilePath.CUSTOMER_INFO_FILE.filePath);
 
         //Skriver customer ut info till fil. customerName:CustomerPhoneNr ny rad.
         //Nästa rad skriver ut pet info till fil.

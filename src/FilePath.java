@@ -3,9 +3,9 @@ public enum FilePath {
 
     CUSTOMER_INFO_FILE("customersInfo");
 
-    final String data;
+    final String filePath;
 
     FilePath(String s) {
-        data = s;
+        filePath = s;
     }
 }
