@@ -4,13 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ReadInputFromUser {
-    static ReadInputFromUser read = new ReadInputFromUser();
+public class ReadFromFile {
+    static ReadFromFile read = new ReadFromFile();
 
-    private ReadInputFromUser() {
+    private ReadFromFile() {
     }
 
-    public static ReadInputFromUser getInstance() {
+    public static ReadFromFile getInstance() {
         return read;
     }
 

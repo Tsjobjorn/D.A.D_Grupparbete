@@ -1,6 +1,5 @@
 import Person.Customer;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -49,10 +48,10 @@ public class Receptionist implements ProtocolFunctionInterface {
         Scanner scan = new Scanner(System.in);
         System.out.println("Customer name?");
         String customerName = scan.nextLine();
-        ReadInputFromUser.getInstance().checkInput(customerName);
+        ReadFromFile.getInstance().checkInput(customerName);
         System.out.println("Customer phone number?");
         String addPhoneNr = scan.nextLine();
-        ReadInputFromUser.getInstance().checkInput(addPhoneNr);
+        ReadFromFile.getInstance().checkInput(addPhoneNr);
         Receptionist.customerList.add(new Customer(customerName, addPhoneNr));
         Receptionist.customerList.get(Receptionist.customerList.size() - 1).addPetNameAndType();
         System.out.println(customerName + " has been added as a customer with a pet " +
@@ -71,7 +70,7 @@ public class Receptionist implements ProtocolFunctionInterface {
     @Override
     public void protocol() {
         if (customerList.size() == 0) {
-            ReadInputFromUser.getInstance().readFillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
+            ReadFromFile.getInstance().readFillCustomerListFromFile(); //Läser in befintliga kunder från filen till customerList.
         }
         printChoices();
         String s = scan.nextLine();
